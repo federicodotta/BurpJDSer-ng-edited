@@ -98,17 +98,8 @@ public class BurpExtender implements IBurpExtender, IMessageEditorTabFactory {
 
         @Override
         public boolean isEnabled(byte[] content, boolean isRequest) {
-            // enable this tab for requests containing the serialized "magic" header
-        	// Questo gli dice se i caratteri contenuti in serializeMagic (penso che siano "0xAC 0xED") sono presenti e quindi
-        	// PROBABILMENTE e' un oggetto serializzato.
-        	
-        	// Se è una richiesta guardo se è un oggetto serializzato per abilitare la mia tab.
-        	// Se è una risposta guardo se è un oggetto serializzato o gzippato
-        	if(isRequest) {
-        		return helpers.indexOf(content, serializeMagic, false, 0, content.length) > -1;
-        	} else {
-        		return ((helpers.indexOf(content, gzipMagic, false, 0, content.length) > -1) || (helpers.indexOf(content, serializeMagic, false, 0, content.length) > -1));
-        	}
+            // If the request or response contains the "magic" "gzip" or "serialize" header, it is probably serialized or gzipped, and it enable the tab
+        	return ((helpers.indexOf(content, gzipMagic, false, 0, content.length) > -1) || (helpers.indexOf(content, serializeMagic, false, 0, content.length) > -1));
         }
 
         @Override
@@ -123,8 +114,8 @@ public class BurpExtender implements IBurpExtender, IMessageEditorTabFactory {
                 	
                 	byte[] baSer;
                 	
-                	// Se è un risposta ed è gzippata
-                	if(!isRequest && helpers.indexOf(content, gzipMagic, false, 0, content.length) > -1) {
+                	// If the request or response is gzipped
+                	if(helpers.indexOf(content, gzipMagic, false, 0, content.length) > -1) {
                 		
                 		
                 		int msgBody = helpers.analyzeRequest(content).getBodyOffset();
@@ -151,7 +142,7 @@ public class BurpExtender implements IBurpExtender, IMessageEditorTabFactory {
                         // Valutare se reinserire, ovviamente modificato
                         //crap = Arrays.copyOfRange(content, msgBody, gzipPos);
                 		
-                    // E' una richiesta O UNA RISPOSTA NO GZIPPATA (capita)    
+                    // If the request of response is not gzipped
                 	} else {
                 	
 
