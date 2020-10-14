@@ -1,0 +1,1 @@
+Version 1.4.4 of XStream library (xstream-1.4.4.jar) cannot be found on its original website (http://xstream.codehaus.org) so I uploaded it here.
