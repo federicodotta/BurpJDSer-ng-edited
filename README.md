@@ -22,3 +22,13 @@ where:
 4) In the Extender TAB of Burp Suite, add the plugin
 
 5) If a serialized and potentially gzipped request/response is detected, a new tab will appear with an XML representation of the Serialized Java Object. You can also intercept and edit the request or use the Repeater, as the plugin will automatically reserialize et regzip edited requests.
+
+
+## Build
+
+Follow PortSwigger's [*Writing your first Burp Suite extension*](https://portswigger.net/burp/extender/writing-your-first-burp-suite-extension) tutorial:
+1) Create a Project
+2) Import xstream.jar in the project
+3) Add a package called "burp"
+4) Place Burp's interface files (export them on Burp's Extender Tab > API > Save interface files) and the BurpExtender.java file in this directory
+5) Build the jar
