@@ -1,8 +1,10 @@
 # BurpJDSer-ng-edited
 
-A Burp Suite plugin that deserialize Serialized Java objects and convert them in an XML format (using XStream library). Based on BurpJDSer-ng of [omercnet](https://github.com/omercnet/BurpJDSer-ng) and on BurpJDSer of [khai-tran](https://github.com/khai-tran/BurpJDSer), with some fixes and the addiction of some code to unpack responses, if packed with gzip.
+A Burp Suite plugin that **deserializes** and **un-gzips** (if necessary) Serialized Java objects, and displays them in an XML format. It also allows to **modify contents** and re-serialize / re-gzip.
 
-##Usage
+Based on BurpJDSer-ng-edited of [federicodotta](https://github.com/federicodotta/BurpJDSer-ng-edited), [omercnet](https://github.com/omercnet/BurpJDSer-ng) and on BurpJDSer of [khai-tran](https://github.com/khai-tran/BurpJDSer).
+
+## Usage
 
 1) Download XStream library (http://xstream.codehaus.org). Tested with version 1.4.4.
 
