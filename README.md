@@ -1,22 +1,34 @@
 # BurpJDSer-ng-edited
 
-A Burp Suite plugin that deserialize Serialized Java objects and convert them in an XML format (using XStream library). Based on BurpJDSer-ng of [omercnet](https://github.com/omercnet/BurpJDSer-ng) and on BurpJDSer of [khai-tran](https://github.com/khai-tran/BurpJDSer), with some fixes and the addiction of some code to unpack responses, if packed with gzip.
+A Burp Suite plugin that **deserializes** and **un-gzips** (if necessary) Serialized Java objects, and displays them in an XML format. It also allows to **modify contents** and re-serialize / re-gzip.
 
-##Usage
+Based on BurpJDSer-ng-edited of [federicodotta](https://github.com/federicodotta/BurpJDSer-ng-edited), [omercnet](https://github.com/omercnet/BurpJDSer-ng) and on BurpJDSer of [khai-tran](https://github.com/khai-tran/BurpJDSer).
 
-1) Download XStream library (http://xstream.codehaus.org). Tested with version 1.4.4.
+## Usage
 
-2) Download jar files of target applet (usually this can be done viewing HTML response from the page that loads Java applet and searching for the applet tag, but can be different in other cases like Java Web Start)
+1) Download XStream library version 1.4.4 from the xstream directory
 
-3) Execute Burp Suite in the following way:
+2) Download the jar files of your target application (usually this can be done viewing HTML responses from the page that loads the Java application, but can be different in other cases like Java Web Start)
 
-java -Xmx512m -classpath "PATH_BURP_JAR;PATH_XSTREAM_JAR;PATH_APPLET_JAR" burp.StartBurp
+3) Execute Burp Suite with the following command:
+
+`java -Xmx512m -classpath "PATH_BURP_JAR;PATH_XSTREAM_JAR;PATH_APPLICATION_JAR" burp.StartBurp`
 
 where:
 * PATH_BURP_JAR is the path of Burp Suite jar file
 * PATH_XSTREAM_JAR is the path of XStream jar file
-* PATH_APPLET_JAR is the path of target applet jar file. In case of more jars, include all in classpath or use wildcards
+* PATH_APPLICATION_JAR is the path of target application jar file. In case there are multiple jars file, include them all in the classpath or use wildcards
 
 4) In the Extender TAB of Burp Suite, add the plugin
 
-5) If a serialized request will be detected, a new tab will appearwith an XML rappresentation of the Serialized Java Object. The same thing for the responses, but it will work also if the response will be packed with gzip. You can also intercept and edit the request or use the Repeater. The plugin will automatically reserialize edited requests.
+5) If a serialized and potentially gzipped request/response is detected, a new tab will appear with an XML representation of the Serialized Java Object. You can also intercept and edit the request or use the Repeater, as the plugin will automatically reserialize et regzip edited requests.
+
+
+## Build
+
+Follow PortSwigger's [*Writing your first Burp Suite extension*](https://portswigger.net/burp/extender/writing-your-first-burp-suite-extension) tutorial:
+1) Create a Project
+2) Import xstream.jar in the project
+3) Add a package called "burp"
+4) Place Burp's interface files (export them on Burp's Extender Tab > API > Save interface files) and the BurpExtender.java file in this directory
+5) Build the jar
