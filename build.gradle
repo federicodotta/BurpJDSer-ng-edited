@@ -1,0 +1,19 @@
+plugins {
+    id 'java'
+}
+group = 'org.fd'
+version = '1.0-SNAPSHOT'
+repositories {
+    mavenCentral()
+}
+dependencies {
+    implementation 'com.thoughtworks.xstream:xstream:1.4.20'
+    implementation 'net.portswigger.burp.extender:burp-extender-api:1.7.13'
+
+}
+jar {
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
+}
